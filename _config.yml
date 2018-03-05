@@ -68,4 +68,10 @@ theme: cactus-white
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: rsync
+  host: xiaoai.me
+  user: xiaoai
+  root: /srv/www/hexoblog
+  delete: true
+  verbose: true
+  ignore_errors: false
