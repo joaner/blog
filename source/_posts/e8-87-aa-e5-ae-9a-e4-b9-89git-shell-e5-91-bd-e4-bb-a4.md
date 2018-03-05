@@ -14,21 +14,25 @@ tags:
 ## 创建命令
 
 只需要在git-shell目录下增加一个可执行文件，比如就叫 **create**
-<pre>$ cd /home/git
+```
+$ cd /home/git
 $ sudo vi git-shell-commands/create
 #/bin/sh
 git init --bare $1.git;
 $ sudo chmod a+x git-shell-commands/create
-</pre>
+
+```
 这里的**/home/git**就是git用户的主目录，也就是存放所有仓库的目录．**git-shell-commands/create **就是创建新仓库的脚本，它的参数 **$1 **就是传入的新仓库名
 
 ## 调用命令
 
-<pre>$ ssh git@xiaoai.me
+```
+$ ssh git@xiaoai.me
 Run 'help' for help, or 'exit' to leave.  Available commands:
 create
 list
-git&gt; create hello
+git> create hello
 Initialized empty Git repository in /home/git/hello.git/
-</pre>
+
+```
 至此就算扩展了一个新功能，挺简单的

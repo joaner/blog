@@ -12,7 +12,9 @@ framework7是一个前端UI框架，它能保持和原生应用一样的UI风格
 今天遇到了第一个问题:
 
 初始化框架时报错:
-<pre>result of expression this[0]."classList" is not an object  (framework7.min.js:22)</pre>
+```
+result of expression this[0]."classList" is not an object  (framework7.min.js:22)
+```
 这是由于浏览器版本太低，比如 Safari7 不支持 `classList` 特性，才会有这个错误。
 > 支持的浏览器版本：[http://caniuse.com/#feat=classlist](http://caniuse.com/#feat=classlist)
 可以使用这个补丁解决： [https://github.com/eligrey/classList.js](https://github.com/eligrey/classList.js)

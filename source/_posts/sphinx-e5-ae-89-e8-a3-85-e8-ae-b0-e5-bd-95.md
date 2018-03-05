@@ -8,5 +8,7 @@ tags:
 ---
 
 1\. yum 安装
-<pre class="lang:sh decode:true ">$ sudo yum install sphinx libsphinxclient libsphinxclient-devel</pre>
+```
+$ sudo yum install sphinx libsphinxclient libsphinxclient-devel
+```
 &nbsp;

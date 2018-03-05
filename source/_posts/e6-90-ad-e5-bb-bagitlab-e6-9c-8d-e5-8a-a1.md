@@ -7,7 +7,7 @@ date: 2016-06-06 07:24:51
 tags:
 ---
 
-为了搭建这个折腾了一天 >_&lt;
+为了搭建这个折腾了一天
 
 ## 有两种安装方式
 
@@ -31,28 +31,33 @@ tags:
 
 这个需要再等一分钟确认，如果还是502，则说明主服务启动出错了，也可能是ruby服务的sock文件权限问题
 
-    /var/log/gitlab/nginx/gitlab_error.log
-    `</pre>
+```
+/var/log/gitlab/nginx/gitlab_error.log
+```
 
-    ### 访问500错误
+### 访问500错误
 
-    可能是`redis`获取`pgsql`启动出错，查看 `production.log` 日志即可
+可能是`redis`获取`pgsql`启动出错，查看 `production.log` 日志即可
 
-    <pre>`/var/log/gitlab/gitlab-rails/production.log
-    `</pre>
+```
+/var/log/gitlab/gitlab-rails/production.log
+```
 
-    我遇到的是redis.sock的权限有误
+我遇到的是redis.sock的权限有误
 
-    <pre>`sudo chmod a+rw /var/opt/gitlab/redis/redis.socket
-    `</pre>
+```
+sudo chmod a+rw /var/opt/gitlab/redis/redis.socket
+```
 
-    ### gitlab访问主机名的配置
+### gitlab访问主机名的配置
 
-    编辑 `/opt/gitlab/embedded/service/gitlab-rails/config/gitlab.yml`的`gitlab.host`项目
+编辑 `/opt/gitlab/embedded/service/gitlab-rails/config/gitlab.yml`的`gitlab.host`项目
 
-    记得重启服务，需要等待1分钟：
+记得重启服务，需要等待1分钟：
 
-    <pre>`sudo gitlab-ctl restart
+```
+sudo gitlab-ctl restart
+```
 
 接下来就可以用 http://git.xiaoai.me 访问了。
 

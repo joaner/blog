@@ -49,7 +49,7 @@ tags:
 
 yii2默认不会设置session和XSRF-TOKEN，但laravel会，所以主要性能差距应该就是这个造成的。但从设计上，yii2总是按需加载，只有当使用视图的**ActiveForm**时它才会主动设置**XSRF**，显然比laravel要灵活。
 
-所以我也给yii加上了启用session的代码：`\Yii::$app-&gt;session-&gt;open();`，但仍然比laravel快4倍多。结果见最下。
+所以我也给yii加上了启用session的代码：`\Yii::$app->session->open();`，但仍然比laravel快4倍多。结果见最下。
 
 ## 原因
 
@@ -64,7 +64,8 @@ ab测试3000次请求，这里各列出随机的一组测试
 
 #### laravel 5.1
 
-<pre>$ ab -n 3000 http://laravel.localhost/test
+```
+$ ab -n 3000 http://laravel.localhost/test
 Concurrency Level:      1
 Time taken for tests:   19.507 seconds
 Complete requests:      3000
@@ -75,11 +76,13 @@ Requests per second:    153.79 [#/sec] (mean)
 Time per request:       6.502 [ms] (mean)
 Time per request:       6.502 [ms] (mean, across all concurrent requests)
 Transfer rate:          147.81 [Kbytes/sec] received
-</pre>
+
+```
 
 #### Yii 2.0 （默认配置，不开启session）
 
-<pre>$ ab -n 3000 http://yii2.localhost/test
+```
+$ ab -n 3000 http://yii2.localhost/test
 Concurrency Level:      1
 Time taken for tests:   4.456 seconds
 Complete requests:      3000
@@ -90,11 +93,13 @@ Requests per second:    673.24 [#/sec] (mean)
 Time per request:       1.485 [ms] (mean)
 Time per request:       1.485 [ms] (mean, across all concurrent requests)
 Transfer rate:          109.80 [Kbytes/sec] received
-</pre>
+
+```
 
 #### Yii 2.0 （为了和laravel保持一致，所以也开启session）
 
-<pre>Concurrency Level:      1
+```
+Concurrency Level:      1
 Time taken for tests:   5.045 seconds
 Complete requests:      3000
 Failed requests:        0
@@ -103,5 +108,6 @@ HTML transferred:       15000 bytes
 Requests per second:    594.67 [#/sec] (mean)
 Time per request:       1.682 [ms] (mean)
 Time per request:       1.682 [ms] (mean, across all concurrent requests)
-Transfer rate:          216.03 [Kbytes/sec] received</pre>
+Transfer rate:          216.03 [Kbytes/sec] received
+```
 &nbsp;

@@ -56,9 +56,11 @@ http://www.rainloop.net/docs/installation/
 ###### 创建数据目录
 
 需要在安装目录外创建一个data目录，web服务可读写权限．这个目录包含了许多关键信息，需要配置禁止访问
-<pre>location ^~ /data {
+```
+location ^~ /data {
   deny all;
-}</pre>
+}
+```
 
 ###### 安装后配置
 

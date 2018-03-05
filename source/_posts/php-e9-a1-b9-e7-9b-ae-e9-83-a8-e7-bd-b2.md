@@ -21,7 +21,9 @@ deploy是在客户端调用，它会自己登录到服务器执行相关操作�
 ### 安装
 
 首先需要安装deployer，将它装在composer global下，方便部署多个项目
-<pre>$ composer global require deployer/deployer:^3.0</pre>
+```
+$ composer global require deployer/deployer:^3.0
+```
 程序就安装在 **~/.composer/vendor/bin/dep**
 
 ### 编写部署逻辑
@@ -34,8 +36,11 @@ deploy是在客户端调用，它会自己登录到服务器执行相关操作�
 deployer默认针对的是**symfony**项目的部署，与Yii2有差别．因此我需要禁用它的一些功能，比如目录权限配置，Yii2会自己完成这些配置．
 
 在项目代码根目录下创建一个部署程序
-<pre>vi deploy.php</pre>
-<pre class="php">&lt;?php
+```
+vi deploy.php
+```
+```
+<?php
 
 // 包含必要的库
 require 'recipe/symfony.php';
@@ -45,11 +50,11 @@ $path = '/srv/www/myproject';
 
 // 要部署到的机器
 server('prod', 'localhost', 22)
--&gt;user('name') // 登录主机的用户
--&gt;password(null) // 如果是null，会在安装前询问你密码
--&gt;stage('production')
+->user('name') // 登录主机的用户
+->password(null) // 如果是null，会在安装前询问你密码
+->stage('production')
 // 需要先在这台机器上创建这个目录
--&gt;env('deploy_path', $path);
+->env('deploy_path', $path);
 
 // 指定git仓库的位置，如果是私有的，可以根据HTTP协议设置登录用户
 set('repository', 'https://[username]:[password]@github.com/my/project.git');
@@ -85,7 +90,8 @@ after('deploy', 'init');
 after('deploy', 'push');
 // 更新opcache缓存，否则程序更改不会生效
 after('deploy', 'cache');
-</pre>
+
+```
 
 #### 目录说明
 
@@ -104,7 +110,8 @@ after('deploy', 'cache');
 ### 开始部署
 
 参数 **deploy** 就是刚才创建的部署程序文件名，**production**就是按线上生产环境部署
-<pre>$ ~/.composer/vendor/bin/dep deploy production
+```
+$ ~/.composer/vendor/bin/dep deploy production
 ✔ Executing task deploy:prepare
 ✔ Executing task deploy:release
 ✔ Executing task deploy:update_code
@@ -113,12 +120,14 @@ after('deploy', 'cache');
 ✔ Executing task init
 ✔ Executing task push
 ✔ Executing task cache
-</pre>
+
+```
 部署后可以看到这样的目录结构
-<pre>$ tree -L 2 /srv/www/myproject
+```
+$ tree -L 2 /srv/www/myproject
 .
-|-- current -&gt; /srv/www/myproject/releases/20150617163027
-|-- release -&gt; /srv/www/myproject/releases/20150617163027
+|-- current -> /srv/www/myproject/releases/20150617163027
+|-- release -> /srv/www/myproject/releases/20150617163027
 |-- releases
 |   |-- 20150617160840
 |   |-- 20150617161024
@@ -126,14 +135,17 @@ after('deploy', 'cache');
 |   |-- 20150617162823
 |   `-- 20150617163027
 
-</pre>
+
+```
 
 #### nginx的配置
 
-<pre>server {
+```
+server {
       root /srv/www/myproject/current;
       ......
-}</pre>
+}
+```
 &nbsp;
 
 至此可以实现不影响线上访问，原子性的部署．更多文档参见  [http://deployer.org/docs](http://deployer.org/docs)

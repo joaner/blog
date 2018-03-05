@@ -12,13 +12,21 @@ tags:
 ## 创建证书
 
 创建根证书私匙，这里的2048也可以是4096更安全
-<pre>openssl genrsa -out root.key 2048</pre>
+```
+openssl genrsa -out root.key 2048
+```
 创建根证书公钥
-<pre>openssl req -new -key root.key -out root.csr</pre>
+```
+openssl req -new -key root.key -out root.csr
+```
 创建独立的证书配置，也就是通配符域名的设置，如果想指定更多域名，可以用逗号分隔 subjectAltName=DNS:*.xiaoai.me**,DNS:*.site2.com**
-<pre>echo "subjectAltName=DNS:*.xiaoai.me" &gt; cert_extensions</pre>
+```
+echo "subjectAltName=DNS:*.xiaoai.me" > cert_extensions
+```
 创建web服务器使用的CA证书
-<pre>openssl x509 -req -sha512 -in root.csr -signkey root.key -extfile cert_extensions -out server.crt -days 1095</pre>
+```
+openssl x509 -req -sha512 -in root.csr -signkey root.key -extfile cert_extensions -out server.crt -days 1095
+```
 这里会询问一些参数，比如签发者的组织名，可以随便填都行
 
 #### 参数作用
@@ -35,20 +43,26 @@ tags:
 
 #### nginx 主机
 
-<pre>listen 443 ssl;
+```
+listen 443 ssl;
 server_name ssl1.xiaoai.me;
-</pre>
+
+```
 
 #### 证书配置
 
-<pre>ssl_certificate server.crt;
+```
+ssl_certificate server.crt;
 ssl_certificate_key root.key;
-</pre>
+
+```
 
 #### 缓存优化
 
-<pre>ssl_session_cache shared:SSL:10m;
-ssl_session_timeout 10m;</pre>
+```
+ssl_session_cache shared:SSL:10m;
+ssl_session_timeout 10m;
+```
 
 ## 信任证书
 

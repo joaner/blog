@@ -11,7 +11,9 @@ tags:
 
 因为是分几次删除，所以先把上次删除的命令调出来，然后修改后面的ID参数。
 
-    delete from product where id ;
+```
+delete from product where id ;
+```
 
 结果刚删掉老的参数，同事问我问题，我手就自然落在键盘上，触发了`Enter`键。
 

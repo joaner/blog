@@ -14,26 +14,35 @@ php7目前还处于开发阶段，有很多扩展模块不支持．当然有一�
 ## 安装
 
 普通用户需要从https协议下载，ssh协议只面向PHP小组开发者
-<pre class="code">git clone https://git.php.net/repository/php-src.git</pre>
-<pre class="code">./buildconf
+```
+git clone https://git.php.net/repository/php-src.git
+```
+```
+./buildconf
 ./configure --prefix=/srv/server/php7 --enable-mbstring --enable-zip --enable-bcmath --enable-pcntl --enable-ftp --enable-exif --enable-calendar --enable-sysvmsg --enable-sysvsem --enable-sysvshm --enable-wddx --with-curl --with-mcrypt --with-iconv --with-gmp --with-pspell --with-gd --with-jpeg-dir=/usr --with-png-dir=/usr --with-zlib-dir=/usr --with-xpm-dir=/usr --with-freetype-dir=/usr --with-t1lib=/usr --enable-gd-native-ttf --enable-gd-jis-conv --with-openssl --with-mysql=/usr --with-pdo-mysql=/usr --with-gettext=/usr --with-zlib=/usr --with-bz2=/usr --with-recode=/usr --with-mysqli=/usr/bin/mysql_config
-</pre>
+
+```
 
 #### 在安装时可能遇到的依赖问题
 
-<pre>checking for re2c... no
+```
+checking for re2c... no
 configure: WARNING: You will need re2c 0.13.4 or later if you want to regenerate PHP parsers.
-</pre>
+
+```
 
 ##### 需要安装[re2c库](http://re2c.org/)
 
-<pre>wget http://downloads.sourceforge.net/project/re2c/re2c/0.14.2/re2c-0.14.2.tar.gz?r=&amp;ts=1431640121&amp;use_mirror=tcpdiag
-</pre>
+```
+wget http://downloads.sourceforge.net/project/re2c/re2c/0.14.2/re2c-0.14.2.tar.gz?r=&amp;ts=1431640121&amp;use_mirror=tcpdiag
+
+```
 接下来configure 和 make 不多写了
 
 ###### 其它问题 bison, bzip2, t1lib, pspell, RECODE
 
-<pre>configure: error: bison is required to build PHP/Zend when building a GIT checkout!
+```
+configure: error: bison is required to build PHP/Zend when building a GIT checkout!
 # yum install bison bison-devel
 
 configure: error: Please reinstall the BZip2 distribution
@@ -49,11 +58,13 @@ configure: error: Cannot find pspell
 # yum install aspell aspell-devel
 
 configure: error: Can not find recode.h anywhere under /usr /usr/local /usr /opt.
-# yum install recode recode-devel</pre>
+# yum install recode recode-devel
+```
 不同的环境可能还有其它依赖问题，不过都可以google解决的
 
 好了，configure 完成
-<pre style="font-size: 14px;">Generating files
+```
+Generating files
 configure: creating ./config.status
 creating main/internal_functions.c
 creating main/internal_functions_cli.c
@@ -79,17 +90,22 @@ config.status: creating ext/phar/phar.phar.1
 config.status: creating main/php_config.h
 config.status: executing default commands
 configure: WARNING: unrecognized options: --with-mysql
-</pre>
+
+```
 接下来就是漫长的make
-<pre>$ make
-# make install</pre>
+```
+$ make
+# make install
+```
 
 ##### 大功告成!
 
-<pre>$ /srv/server/php7/bin/php -v
+```
+$ /srv/server/php7/bin/php -v
 PHP 7.0.0-dev (cli) (built: May 14 2015 18:30:21) 
 Copyright (c) 1997-2015 The PHP Group
-Zend Engine v3.0.0-dev, Copyright (c) 1998-2015 Zend Technologies</pre>
+Zend Engine v3.0.0-dev, Copyright (c) 1998-2015 Zend Technologies
+```
 
 ## 运行
 
@@ -100,11 +116,15 @@ php安装在 `/srv/server/php7`
 
 ### 设置配置文件
 
-<pre>cp /srv/package/php-7/php.ini-development /srv/server/php7/lib/php.ini</pre>
+```
+cp /srv/package/php-7/php.ini-development /srv/server/php7/lib/php.ini
+```
 
 ### 作为CGI模式运行在后台
 
-<pre>nohup /srv/server/php7/bin/php-cgi -b 127.0.0.1:9002 -c /srv/server/php7/lib/php.ini &gt; /var/log/php-cgi.log &amp;</pre>
+```
+nohup /srv/server/php7/bin/php-cgi -b 127.0.0.1:9002 -c /srv/server/php7/lib/php.ini > /var/log/php-cgi.log &amp;
+```
 wordpress 已经支持运行在php7上了
 
 ### 优化点

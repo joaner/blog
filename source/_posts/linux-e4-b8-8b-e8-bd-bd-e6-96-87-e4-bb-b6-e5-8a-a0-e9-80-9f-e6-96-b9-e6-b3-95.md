@@ -19,9 +19,10 @@ tags:
 
 配置规则：
 
+```
     server {
         listen    80;
-        server_name ~^(?&lt;domain&gt;.+)\.proxy.xiaoai.me$;
+        server_name ~^(?<domain>.+)\.proxy.xiaoai.me$;
 
         location / {
             resolver 8.8.8.8;
@@ -30,16 +31,18 @@ tags:
             proxy_pass_request_headers      on;
         }
     }
-    `</pre>
+```
 
-    比如想下载：https://nodejs.org/dist/v5.5.0/node-v5.5.0-linux-x64.tar.xz  很慢
-    这时候可以给链接加个正向代理的域名： https://nodejs.org**.proxy.xiaoai.me**/dist/v5.5.0/node-v5.5.0-linux-x64.tar.xz 通过代理，速度会更快。
+比如想下载：https://nodejs.org/dist/v5.5.0/node-v5.5.0-linux-x64.tar.xz  很慢
+这时候可以给链接加个正向代理的域名： http://nodejs.org.proxy.xiaoai.me/dist/v5.5.0/node-v5.5.0-linux-x64.tar.xz 通过代理，速度会更快。
 
-    ## proxychains 命令行设置代理
+## proxychains 命令行设置代理
 
-    有些情况下无法更改域名，比如composer更新。这时候可以通过proxychains配置SOCKS5或HTTP代理服务，然后在命令行加速。
+有些情况下无法更改域名，比如composer更新。这时候可以通过proxychains配置SOCKS5或HTTP代理服务，然后在命令行加速。
 
-    <pre>`$ proxychains composer update
+```
+$ proxychains composer update
+```
 
 proxychains的方式不是全局的，所以只针对后面命令的进程设置代理配置。不会影响其它的进程，非常有用。
 
