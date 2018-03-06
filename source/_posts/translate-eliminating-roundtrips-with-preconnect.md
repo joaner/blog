@@ -1,5 +1,5 @@
 ---
-title: "[译]使用preconnect消除往返"
+title: "[译]使用preconnect减小延迟"
 categories:
   - html5
 date: 2018-03-06 02:28:26
@@ -7,7 +7,7 @@ date: 2018-03-06 02:28:26
 
 > 本文翻译自 [Eliminating Roundtrips with Preconnect](https://www.igvita.com/2015/08/17/eliminating-roundtrips-with-preconnect/) ，作者 Ilya Grigorik 著有[《High Performance Browser Networking - O'Reilly》](https://hpbn.co/?utm_source=igvita&utm_medium=referral&utm_campaign=igvita-footer)
 
-在实际的请求内容发送到服务器之前，建立HTTP连接的“简单”动作可能会产生很多往返数据包：浏览器需要先解析DNS名称，执行TCP握手，如果是HTTPS还需要建立TLS加密隧道。这些动作都将会延迟获取数据，在网速不佳或者移动网络上问题会更突出。
+在实际的请求内容发送到服务器之前，建立HTTP连接的“简单”动作可能会产生很多往返数据包：浏览器需要先解析DNS名称，执行TCP握手，如果是HTTPS还需要建立TLS加密隧道。这些动作都将会阻塞获取数据，在网速不佳或者移动网络上问题会更突出。
 
 ![xsocket-setup](https://www.igvita.com/posts/15/xsocket-setup.png.pagespeed.ic.SvciYHBRv0.webp)
 
