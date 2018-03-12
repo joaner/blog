@@ -10,6 +10,35 @@ webpack正式发布有几周了，但是一些Vue依赖的webpack插件还没有
 
 ## 升级步骤
 
+我创建了一个 [vue2+webpack4的示例仓库](https://github.com/joaner/vue-webpack4-example)，以下步骤最终修改的代码都在这个 [commit](https://github.com/joaner/vue-webpack4-example/commit/645566606c4fc5c72d592462f92c283f107654b1) 里。
+
+### 升级依赖
+
+首先需要安装`npm-check-updates`，它可以不受升级规则`^`的限制，安装最新的大版本，比如`webpack`从`^3.11.0`到`^4.1.1`
+
+```bash
+npm install -g npm-check-updates
+ncu -u
+npm install extract-text-webpack-plugin@4.0.0-beta.0
+npm install --force
+```
+以上命令即可完成升级，需要说明：
+1. `ncu` 命令只会修改 *package.json*
+2. `--force` 会强制重新安装，不使用缓存或本地已有的包
+2. *extract-text-webpack-plugin* 还处于beta状态，所以ncu安装的还是上一个大版本`3.x.x`，需要手动指定安装`4.0.0-beta.0`
+
+### 修改配置
+
+vue项目生产和开发两个配置分开的：*build/webpack.dev.conf.js*, *build/webpack.prod.conf.js*
+1. 增加 **mode** 配置，分别设置为 *development* 和 *production*
+2. 移除CommonsChunkPlugin的使用
+
+-----
+
+## 详细的修改
+
+***依赖包的升级很快，以下描述有的已经过时***
+
 ### package.json
 
 大多数loader/plugin都已支持webpack4，只需要安装最新版：
@@ -56,7 +85,7 @@ webpack正式发布有几周了，但是一些Vue依赖的webpack插件还没有
   npm install
   ```
 
-## webpack.config.js
+### webpack.config.js
 
 在vue2项目的 *build/webpack.prod.conf.js*，需要移除一些废弃的配置。
 
@@ -98,8 +127,11 @@ webpack正式发布有几周了，但是一些Vue依赖的webpack插件还没有
 -      name: 'manifest',
 -      chunks: ['vendor']
 -    }),
-
    ]
++  
++  optimization: {
++   
++  }
  }
 ```
 
