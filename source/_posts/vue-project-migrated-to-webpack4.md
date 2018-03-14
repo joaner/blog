@@ -31,7 +31,11 @@ npm install --force
 
 vue项目生产和开发两个配置分开的：*build/webpack.dev.conf.js*, *build/webpack.prod.conf.js*
 1. 增加 **mode** 配置，分别设置为 *development* 和 *production*
-2. 移除CommonsChunkPlugin的使用
+2. 移除 *CommonsChunkPlugin* *UglifyJsPlugin* 插件的使用（新版在 `optimization.splitChunks` 里来配置分块打包，感觉并没有必要去拆分）
+
+以上这些就完成了！
+
+运行 `npm run build` 可以看到最新版webpack的运行结果了。
 
 -----
 
